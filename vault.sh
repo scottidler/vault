@@ -15,14 +15,14 @@ Usage: $0 [exec | login] <profile> [<args>...]
     login   will run aws-vault login
             the token that is output will be stored in clipboard
 EOF
-    exit $1
 }
 
 function vault() {
     op="$1"
     profile="$2"
     if [[ -z "$op" ]] || [[ -z "$profile" ]]; then
-        usage 1
+        usage
+        return 1
     fi
     case "$op" in
     exec)
@@ -32,7 +32,8 @@ function vault() {
         aws-vault --debug login $profile -s --assume-role-ttl=1h --federation-token-ttl=12h | tee >(xclip -sel clip)
         ;;
     *)
-        usage 1
+        usage
+        return 1
         ;;
     esac
 }
