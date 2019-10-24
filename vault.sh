@@ -7,7 +7,13 @@ fi
 
 function usage() {
     cat <<EOF
-Usage: $0 [exec | login] <profile>
+Usage: $0 [exec | login] <profile> [<args>...]
+
+    exec    will run aws-vault exec
+            passing args to run optional, otherwise subshell
+
+    login   will run aws-vault login
+            the token that is output will be stored in clipboard
 EOF
     exit $1
 }
